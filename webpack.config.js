@@ -4,10 +4,12 @@ module.exports = {
     entry: [
         './app.js'
     ],
+    devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
+    mode: 'development',
     module: {
         rules: [
             {
@@ -24,7 +26,23 @@ module.exports = {
                     { loader: "css-loader" },
                     { loader: "sass-loader" }
                 ] 
+            },
+            {
+                test: /\.tsx?$/, 
+                use: [
+                    { loader: "ts-loader" },
+                ],
+                exclude: /node_modules/,
             }
         ]
-    }
+    },
+
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
+    },
+    
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, './dist'),
+    },
 }
